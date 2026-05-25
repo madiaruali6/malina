@@ -1,0 +1,202 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:malina/features/auth/blocs/auth_bloc.dart';
+import 'package:malina/features/auth/blocs/auth_event.dart';
+import 'package:malina/features/auth/blocs/auth_state.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
+
+  static final _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  String? _validateEmail(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Введите почту';
+    }
+    if (!_emailRegex.hasMatch(value.trim())) {
+      return 'Неверный формат почты';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Введите пароль';
+    }
+    if (value.length < 8) {
+      return 'Минимум 8 символов';
+    }
+    return null;
+  }
+
+  void _onLogin() {
+    if (!_formKey.currentState!.validate()) return;
+
+    context.read<AuthBloc>().add(
+      AuthLoginRequested(
+        username: _emailController.text.trim(),
+        password: _passwordController.text,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isWide = MediaQuery.of(context).size.width > 600;
+
+    return Scaffold(
+      body: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state.status == AuthStatus.authenticated) {
+            context.go('/feed');
+          }
+        },
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(
+                horizontal: isWide ? 48 : 32,
+                vertical: 32,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        labelText: 'Почта',
+                        border: const OutlineInputBorder(),
+                        suffixIcon: _emailController.text.isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(Icons.close),
+                                onPressed: () {
+                                  _emailController.clear();
+                                  setState(() {});
+                                },
+                              )
+                            : null,
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: _validateEmail,
+                      onChanged: (_) {
+                        setState(() {});
+                        _formKey.currentState?.validate();
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        labelText: 'Пароль',
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                          ),
+                          onPressed: () {
+                            setState(
+                              () => _obscurePassword = !_obscurePassword,
+                            );
+                          },
+                        ),
+                      ),
+                      obscureText: _obscurePassword,
+                      textInputAction: TextInputAction.done,
+                      validator: _validatePassword,
+                      onChanged: (_) => _formKey.currentState?.validate(),
+                      onFieldSubmitted: (_) => _onLogin(),
+                    ),
+                    const SizedBox(height: 24),
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        String? errorMessage;
+                        if (state.failure == AuthFailure.wrongPassword) {
+                          final left = 3 - state.failedAttempts;
+                          errorMessage = 'Неверный пароль. Попыток: $left';
+                        } else if (state.failure == AuthFailure.lockedOut) {
+                          errorMessage = 'Аккаунт заблокирован';
+                        } else if (state.failure == AuthFailure.emptyFields) {
+                          errorMessage = 'Заполните все поля';
+                        }
+
+                        if (errorMessage != null) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Text(
+                              errorMessage,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
+                    ),
+                    BlocBuilder<AuthBloc, AuthState>(
+                      builder: (context, state) {
+                        final isLoading = state.status == AuthStatus.unknown;
+                        return SizedBox(
+                          width: double.infinity,
+                          height: 48,
+                          child: ElevatedButton(
+                            onPressed: isLoading ? null : _onLogin,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFF62C5B),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                            ),
+                            child: isLoading
+                                ? const SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  )
+                                : const Text(
+                                    'Войти',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
