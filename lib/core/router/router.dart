@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/core/injection/injection.dart';
@@ -73,8 +75,15 @@ final GoRouter appRouter = _createRouter(locator<AuthBloc>());
 
 class _AuthListener extends ChangeNotifier {
   final AuthBloc _authBloc;
+  late final StreamSubscription<AuthState> _sub;
 
   _AuthListener(this._authBloc) {
-    _authBloc.stream.listen((_) => notifyListeners());
+    _sub = _authBloc.stream.listen((_) => notifyListeners());
+  }
+
+  @override
+  void dispose() {
+    _sub.cancel();
+    super.dispose();
   }
 }

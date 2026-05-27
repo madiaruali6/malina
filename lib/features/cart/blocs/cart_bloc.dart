@@ -49,7 +49,23 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     CartItemAdded event,
     Emitter<CartState> emit,
   ) async {
-    final updated = [...state.items, event.item];
+    final existingIndex = state.items.indexWhere((item) {
+      return item.name == event.item.name &&
+          item.category == event.item.category &&
+          item.price == event.item.price &&
+          item.qrData == event.item.qrData;
+    });
+
+    final updated = [...state.items];
+    if (existingIndex != -1) {
+      final existing = updated[existingIndex];
+      updated[existingIndex] = existing.copyWith(
+        quantity: existing.quantity + event.item.quantity,
+      );
+    } else {
+      updated.add(event.item);
+    }
+
     emit(state.copyWith(items: updated));
     _debounceSave(updated);
   }
