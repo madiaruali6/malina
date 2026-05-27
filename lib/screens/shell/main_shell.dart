@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:malina/features/auth/blocs/auth_bloc.dart';
 import 'package:malina/features/auth/blocs/auth_state.dart';
 import 'package:malina/features/cart/blocs/cart_bloc.dart';
+import 'package:malina/features/cart/blocs/cart_event.dart';
 import 'package:malina/features/cart/blocs/cart_state.dart';
 import 'package:malina/features/cart/domain/cart_item.dart';
 import 'package:malina/screens/qr/qr_page.dart';
@@ -49,9 +50,43 @@ class _MainShellState extends State<MainShell>
 
     if (!context.mounted || code == null) return;
 
+    final scannedItem = _buildCartItemFromQr(code);
+    context.read<CartBloc>().add(CartItemAdded(scannedItem));
+
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('QR-код отсканирован')));
+    ).showSnackBar(
+      SnackBar(content: Text('Добавлено в корзину: ${scannedItem.name}')),
+    );
+  }
+
+  CartItem _buildCartItemFromQr(String code) {
+    final normalized = code.toLowerCase();
+    final isShampoo = normalized.contains('shampoo') ||
+        normalized.contains('beauty') ||
+        normalized.contains('shamp');
+    final isPizza = normalized.contains('pizza') || normalized.contains('food');
+
+    final category = isShampoo ? Category.beauty : Category.food;
+    final name = isShampoo
+        ? 'Shampoo'
+        : isPizza
+        ? 'Pizza'
+        : (category == Category.food ? 'Pizza' : 'Shampoo');
+
+    final defaultPrice = isShampoo ? 3900 : 2500;
+
+    return CartItem(
+      id: DateTime.now().microsecondsSinceEpoch.toString(),
+      name: name,
+      category: category,
+      quantity: 1,
+      subcategory: category == Category.food ? 'Еда' : 'Бьюти',
+      price: defaultPrice,
+      description: 'Добавлено после сканирования QR',
+      qrData: code,
+      qrFormat: 'qr',
+    );
   }
 
   void _showMenu() {

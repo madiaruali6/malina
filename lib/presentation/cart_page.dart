@@ -271,7 +271,7 @@ class _ItemRow extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ImagePlaceholder(cat: item.category),
+          _ImagePlaceholder(item: item),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -316,10 +316,12 @@ class _ItemRow extends StatelessWidget {
 }
 
 class _ImagePlaceholder extends StatelessWidget {
-  final Category cat;
-  const _ImagePlaceholder({required this.cat});
+  final CartItem item;
+  const _ImagePlaceholder({required this.item});
   @override
   Widget build(BuildContext context) {
+    final imagePath = _resolveProductImage(item);
+
     return Container(
       width: 80,
       height: 80,
@@ -327,11 +329,32 @@ class _ImagePlaceholder extends StatelessWidget {
         color: const Color(0xFFF8F8F8),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Icon(
-        cat == Category.food ? Icons.fastfood : Icons.face,
-        color: Colors.grey,
-      ),
+      clipBehavior: Clip.antiAlias,
+      child: imagePath == null
+          ? Icon(
+              item.category == Category.food ? Icons.fastfood : Icons.face,
+              color: Colors.grey,
+            )
+          : Image.asset(
+              imagePath,
+              fit: BoxFit.cover,
+              errorBuilder: (_, _, _) => Icon(
+                item.category == Category.food ? Icons.fastfood : Icons.face,
+                color: Colors.grey,
+              ),
+            ),
     );
+  }
+
+  String? _resolveProductImage(CartItem item) {
+    final source = '${item.name} ${item.qrData ?? ''}'.toLowerCase();
+    if (source.contains('pizza')) return 'assets/images/pizza.png';
+    if (source.contains('shampoo') || source.contains('shamp')) {
+      return 'assets/images/shampoo.png';
+    }
+    if (item.category == Category.food) return 'assets/images/pizza.png';
+    if (item.category == Category.beauty) return 'assets/images/shampoo.png';
+    return null;
   }
 }
 
