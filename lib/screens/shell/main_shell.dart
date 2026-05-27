@@ -74,26 +74,58 @@ class _MainShellState extends State<MainShell>
     context.go('/cart?category=$cat');
   }
 
+  bool get _isOnFeed => widget.currentIndex == 0;
+
+  void _onCenterTap(BuildContext context) {
+    if (_isOnFeed) {
+      _openQrScanner(context);
+      return;
+    }
+    _hideMenu();
+    context.go('/feed');
+  }
+
+  Widget _buildCenterButtonIcon() {
+    if (_isOnFeed) {
+      return Image.asset(
+        'assets/images/category.png',
+        width: 48,
+        height: 29,
+        fit: BoxFit.contain,
+      );
+    }
+    return Image.asset(
+      'assets/images/backButton.png',
+      width: 48,
+      height: 29,
+      fit: BoxFit.contain,
+    );
+  }
+
   void _onTap(BuildContext context, int index) {
     switch (index) {
       case 0:
         _hideMenu();
         context.go('/feed');
+        return;
       case 1:
         _hideMenu();
         context.go('/favorites');
+        return;
       case 2:
-        _hideMenu();
-        _openQrScanner(context);
+        _onCenterTap(context);
+        return;
       case 3:
         _hideMenu();
         context.go('/profile');
+        return;
       case 4:
         if (_menuVisible) {
           _hideMenu();
         } else {
           _showMenu();
         }
+        return;
     }
   }
 
@@ -146,10 +178,7 @@ class _MainShellState extends State<MainShell>
                               shape: BoxShape.circle,
                             ),
                             padding: const EdgeInsets.all(12),
-                            child: const Icon(
-                              Icons.qr_code_scanner,
-                              color: Colors.white,
-                            ),
+                            child: _buildCenterButtonIcon(),
                           ),
                           label: '',
                         ),
