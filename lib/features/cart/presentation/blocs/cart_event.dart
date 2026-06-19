@@ -1,4 +1,4 @@
-import '../domain/cart_item.dart';
+import '../../domain/cart_item.dart';
 
 abstract class CartEvent {
   const CartEvent();

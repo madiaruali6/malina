@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:malina/core/injection/injection.dart';
-import 'package:malina/features/auth/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_state.dart';
-import 'package:malina/features/auth/presentation/login_page.dart';
-import 'package:malina/presentation/add_item_page.dart';
-import 'package:malina/presentation/cart_page.dart';
-import 'package:malina/screens/favorites/presentation/favorites_page.dart';
-import 'package:malina/screens/home/presentation/home_page.dart';
-import 'package:malina/screens/profile/profile_page.dart';
-import 'package:malina/screens/shell/main_shell.dart';
+import 'package:malina/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/features/auth/presentation/blocs/auth_state.dart';
+import 'package:malina/features/auth/presentation/pages/login_page.dart';
+import 'package:malina/features/cart/presentation/pages/add_item_page.dart';
+import 'package:malina/features/cart/presentation/pages/cart_page.dart';
+import 'package:malina/features/favorites/presentation/favorites_page.dart';
+import 'package:malina/features/home/presentation/home_page.dart';
+import 'package:malina/features/profile/profile_page.dart';
+import 'package:malina/features/shell/main_shell.dart';
 
 GoRouter _createRouter(AuthBloc authBloc) {
   return GoRouter(

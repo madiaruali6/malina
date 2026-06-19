@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_state.dart';
+import 'package:malina/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/features/auth/presentation/blocs/auth_state.dart';
 import 'package:malina/features/cart/data/cart_repository.dart';
 
-import '../domain/cart_item.dart';
+import '../../domain/cart_item.dart';
 import 'cart_event.dart';
 import 'cart_state.dart';
 
@@ -98,7 +98,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   Future<void> _onCleared(CartCleared event, Emitter<CartState> emit) async {
     emit(state.copyWith(items: []));
-    _debounceSave([]);
+    _cancelPendingSave();
+_repo.clearCart(state.username);
   }
 
   void _debounceSave(List<CartItem> items) {
