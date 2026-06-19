@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:malina/features/cart/data/cart_repository.dart';
+import 'package:malina/src/features/cart/data/cart_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../domain/cart_item.dart';
 

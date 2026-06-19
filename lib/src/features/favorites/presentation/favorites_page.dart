@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:malina/core/injection/injection.dart';
-import 'package:malina/screens/favorites/blocs/favorites_bloc.dart';
-import 'package:malina/screens/favorites/domain/favorite_item.dart';
+import 'package:malina/src/core/injection/injection.dart';
+import 'package:malina/src/features/favorites/presentation/blocs/favorites_bloc.dart';
+import 'package:malina/src/features/favorites/domain/favorite_item.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});

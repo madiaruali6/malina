@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/features/auth/presentation/auth_repository.dart';
+import 'package:malina/src/features/auth/domain/repositories/auth_repository.dart';
 
 import 'auth_event.dart';
 import 'auth_state.dart';

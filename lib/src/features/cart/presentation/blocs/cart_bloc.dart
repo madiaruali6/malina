@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/presentation/blocs/auth_state.dart';
-import 'package:malina/features/cart/data/cart_repository.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_state.dart';
+import 'package:malina/src/features/cart/data/cart_repository.dart';
 
 import '../../domain/cart_item.dart';
 import 'cart_event.dart';

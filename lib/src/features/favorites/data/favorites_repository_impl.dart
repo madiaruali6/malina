@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:malina/screens/favorites/data/favorites_repository.dart';
-import 'package:malina/screens/favorites/domain/favorite_item.dart';
+import 'package:malina/src/features/favorites/data/favorites_repository.dart';
+import 'package:malina/src/features/favorites/domain/favorite_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritesRepositoryImpl implements FavoritesRepository {

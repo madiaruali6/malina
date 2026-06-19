@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:malina/features/cart/blocs/cart_bloc.dart';
-import 'package:malina/features/cart/blocs/cart_event.dart';
-import 'package:malina/features/cart/domain/cart_item.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_bloc.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_event.dart';
+import 'package:malina/src/features/cart/domain/cart_item.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class AddItemPage extends StatefulWidget {

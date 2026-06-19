@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_event.dart';
-import 'package:malina/features/auth/blocs/auth_state.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_event.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_state.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

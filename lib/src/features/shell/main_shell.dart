@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:malina/features/auth/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_state.dart';
-import 'package:malina/features/cart/blocs/cart_bloc.dart';
-import 'package:malina/features/cart/blocs/cart_event.dart';
-import 'package:malina/features/cart/blocs/cart_state.dart';
-import 'package:malina/features/cart/domain/cart_item.dart';
-import 'package:malina/screens/qr/qr_page.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_state.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_bloc.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_event.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_state.dart';
+import 'package:malina/src/features/cart/domain/cart_item.dart';
+import 'package:malina/src/features/qr/qr_page.dart';
 
 class MainShell extends StatefulWidget {
   final Widget child;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/core/injection/injection.dart';
-import 'package:malina/core/router/router.dart';
-import 'package:malina/features/auth/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/blocs/auth_event.dart';
-import 'package:malina/features/cart/blocs/cart_bloc.dart';
+import 'package:malina/src/core/injection/injection.dart';
+import 'package:malina/src/core/router/router.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_event.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

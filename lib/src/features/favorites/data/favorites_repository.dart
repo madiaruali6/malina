@@ -1,4 +1,4 @@
-import 'package:malina/screens/favorites/domain/favorite_item.dart';
+import 'package:malina/src/features/favorites/domain/favorite_item.dart';
 
 abstract class FavoritesRepository {
   Future<List<FavoriteItem>> loadFavorites();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:malina/screens/qr/qr_page.dart';
+import 'package:malina/src/features/qr/qr_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

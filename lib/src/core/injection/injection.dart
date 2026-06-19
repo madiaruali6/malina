@@ -1,11 +1,11 @@
 import 'package:get_it/get_it.dart';
-import 'package:malina/features/auth/presentation/blocs/auth_bloc.dart';
-import 'package:malina/features/auth/domain/repositories/auth_repository.dart';
-import 'package:malina/features/cart/presentation/blocs/cart_bloc.dart';
-import 'package:malina/features/cart/data/cart_repository.dart';
-import 'package:malina/features/favorites/presentation/blocs/favorites_bloc.dart';
-import 'package:malina/features/favorites/data/favorites_repository.dart';
-import 'package:malina/features/favorites/data/favorites_repository_impl.dart';
+import 'package:malina/src/features/auth/presentation/blocs/auth_bloc.dart';
+import 'package:malina/src/features/auth/domain/repositories/auth_repository.dart';
+import 'package:malina/src/features/cart/presentation/blocs/cart_bloc.dart';
+import 'package:malina/src/features/cart/data/cart_repository.dart';
+import 'package:malina/src/features/favorites/presentation/blocs/favorites_bloc.dart';
+import 'package:malina/src/features/favorites/data/favorites_repository.dart';
+import 'package:malina/src/features/favorites/data/favorites_repository_impl.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

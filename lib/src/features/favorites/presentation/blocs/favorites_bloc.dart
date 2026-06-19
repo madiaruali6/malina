@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:malina/screens/favorites/data/favorites_repository.dart';
-import 'package:malina/screens/favorites/domain/favorite_item.dart';
+import 'package:malina/src/features/favorites/data/favorites_repository.dart';
+import 'package:malina/src/features/favorites/domain/favorite_item.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';

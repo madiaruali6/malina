@@ -1,4 +1,4 @@
-import 'package:malina/features/cart/domain/cart_item.dart';
+import 'package:malina/src/features/cart/domain/cart_item.dart';
 
 class CartState {
   final List<CartItem> items;
