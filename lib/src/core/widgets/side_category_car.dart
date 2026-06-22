@@ -21,7 +21,7 @@ class SideCategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
-        width: 72, // чуть шире чтобы бейдж не обрезался
+        width: 72, 
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -58,7 +58,7 @@ class SideCategoryCard extends StatelessWidget {
             if (badgeCount > 0)
               Positioned(
                 top: -4,
-                right: 2, // сдвинули чтобы не обрезался
+                right: 2, 
                 child: Container(
                   width: 16,
                   height: 16,
